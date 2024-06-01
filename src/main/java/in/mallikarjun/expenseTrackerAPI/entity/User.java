@@ -2,7 +2,6 @@ package in.mallikarjun.expenseTrackerAPI.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jdk.jfr.Unsigned;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +20,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "user_id")
+    private long userId;
+
     private String name;
+
     @Column(unique = true)
     private String email;
 
@@ -33,6 +36,7 @@ public class User {
     @Column(name="created_at",nullable=false,updatable= false)
     @CreationTimestamp
     private Timestamp createAt;
+
     @Column(name = "updated_at")
     @CreationTimestamp
     private Timestamp updatedAt;

@@ -21,7 +21,7 @@ public interface ExpenseService {
 
    List<Expense> readByCategory(String catergory, Pageable pageable);
 
-   List<Expense> readByNameContaining(String keyword, Pageable pageable);
+   List<Expense> readByName(String keyword, Pageable pageable);
 
    List<Expense> readByDate(Date startDate, Date endDate, Pageable pageable);
 }
