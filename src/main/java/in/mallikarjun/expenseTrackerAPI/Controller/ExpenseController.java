@@ -3,6 +3,7 @@ package in.mallikarjun.expenseTrackerAPI.Controller;
 import in.mallikarjun.expenseTrackerAPI.entity.Expense;
 import in.mallikarjun.expenseTrackerAPI.service.ExpenseService;
 import in.mallikarjun.expenseTrackerAPI.service.ExpenseServiceImpl;
+import in.mallikarjun.expenseTrackerAPI.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,10 @@ public class ExpenseController {
 
     @Autowired
     private ExpenseService expenseService;
+
+
+
+
     @GetMapping("/expenses")
     public List<Expense> getAllExpenses(Pageable page){
         return expenseService.getAllExpenses(page).toList();// if you add toList it removes the pageable information
@@ -52,8 +57,8 @@ public class ExpenseController {
         }
 
         @GetMapping("/expenses/name")
-        public List<Expense> getExpensesByName(@RequestParam String keyword, Pageable pageable){
-        return expenseService.readByNameContaining(keyword,pageable);
+        public List<Expense> getExpensesByName(@RequestParam String keyword, Pageable page) {
+            return expenseService.readByName(keyword, page);
         }
 
         @GetMapping("/expenses/date")

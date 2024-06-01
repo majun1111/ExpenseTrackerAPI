@@ -3,6 +3,7 @@ package in.mallikarjun.expenseTrackerAPI.service;
 import in.mallikarjun.expenseTrackerAPI.entity.Expense;
 import in.mallikarjun.expenseTrackerAPI.exceptions.ResourceNotFoundException;
 import in.mallikarjun.expenseTrackerAPI.repository.ExpenseRepository;
+import jakarta.websocket.OnClose;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,9 @@ public class ExpenseServiceImpl implements ExpenseService{
 
 @Autowired
 private ExpenseRepository expenseRepo;
+
+@Autowired
+private UserService userService;
     @Override
     public Page<Expense> getAllExpenses(Pageable page) {
         return expenseRepo.findAll(page);
@@ -57,12 +61,14 @@ private ExpenseRepository expenseRepo;
 
     @Override
     public List<Expense> readByCategory(String category, Pageable pageable) {
-       return expenseRepo.findByCategory(category, pageable).toList();
+       return expenseRepo.findByUserIdAndCategory(userService.getLoggedInUser().getUserId(),category, pageable).toList();
     }
 
+
+
     @Override
-    public List<Expense> readByNameContaining(String keyword, Pageable pageable) {
-        return expenseRepo.findByNameContaining(keyword,pageable).toList();
+    public List<Expense> readByName(String keyword, Pageable page) {
+        return expenseRepo.findByUserIdAndNameContaining(userService.getLoggedInUser().getId(), keyword, page).toList();
     }
 
     @Override
@@ -73,6 +79,6 @@ private ExpenseRepository expenseRepo;
         if (endDate == null) {
             endDate = new Date(System.currentTimeMillis());
         }
-        return expenseRepo.findByDateBetween(startDate,endDate,pageable).toList();
+        return expenseRepo.findByUserIdAndDateBetween(userService.getLoggedInUser().getId(),startDate,endDate,pageable).toList();
     }
 }

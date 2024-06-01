@@ -13,30 +13,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<User> save(@Valid @RequestBody UserModel userModel){
-        return new ResponseEntity<User>(userService.createUser(userModel), HttpStatus.CREATED);
-    }
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> read(@PathVariable Long id){
-        return new ResponseEntity<User>(userService.readUser(id),HttpStatus.OK);
+
+    @GetMapping("/profile")
+    public ResponseEntity<User> readUser() {
+        return new ResponseEntity<User>(userService.readUser(), HttpStatus.OK);
     }
 
-    @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody UserModel userModel, @PathVariable Long id){
-        return new ResponseEntity<User>(userService.updateUser(userModel,id),HttpStatus.OK);
+    @PutMapping("/profile")
+    public ResponseEntity<User> updateUser(@RequestBody UserModel user) {
+        return new ResponseEntity<User>(userService.updateUser(user), HttpStatus.OK);
     }
 
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id)throws ResourceNotFoundException {
-        userService.deleteUser(id);
+    @DeleteMapping("/deactivate")
+    public ResponseEntity<HttpStatus> deleteUser() {
+        userService.deleteUser();
         return new ResponseEntity<HttpStatus>(HttpStatus.NO_CONTENT);
     }
-
 }
