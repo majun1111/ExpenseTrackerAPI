@@ -17,7 +17,7 @@ public class UserModel {
     private String email;
 
     @NotNull(message = "Password should not be empty")
-    @Size(min = 5,message = "Password should be at leat 5 characters")
+    @Size(min = 5,message = "Password should be at least 5 characters")
     private String password;
 
     private Long age= 0L;
