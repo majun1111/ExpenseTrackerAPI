@@ -1,27 +1,27 @@
 package in.mallikarjun.expenseTrackerAPI.service;
 
-import in.mallikarjun.expenseTrackerAPI.entity.Expense;
-import in.mallikarjun.expenseTrackerAPI.exceptions.ResourceNotFoundException;
-import org.springframework.data.domain.Page;
+import in.mallikarjun.expenseTrackerAPI.dto.ExpenseDTO;
 import org.springframework.data.domain.Pageable;
 
 import java.sql.Date;
 import java.util.List;
 
+
 public interface ExpenseService {
-    Page<Expense> getAllExpenses(Pageable page);
 
-   Expense getExpenseById(long id) throws ResourceNotFoundException;
+   List<ExpenseDTO> getAllExpenses(Pageable page);
 
-   void deleteExpenseById(long id);
+   ExpenseDTO getExpenseById(String expenseId);
 
-   Expense saveExpenseDetails(Expense expense);
+   void deleteExpenseById(String expenseId);
 
-   Expense updateExpenseDetails(Expense expense, long id);
+   ExpenseDTO saveExpenseDetails(ExpenseDTO expenseDTO);
 
-   List<Expense> readByCategory(String catergory, Pageable pageable);
+   ExpenseDTO updateExpenseDetails(String expenseId, ExpenseDTO expenseDTO);
 
-   List<Expense> readByName(String keyword, Pageable pageable);
+   List<ExpenseDTO> readByCategory(String category, Pageable page);
 
-   List<Expense> readByDate(Date startDate, Date endDate, Pageable pageable);
+   List<ExpenseDTO> readByName(String keyword, Pageable page);
+
+   List<ExpenseDTO> readByDate(Date startDate, Date endDate, Pageable page);
 }
