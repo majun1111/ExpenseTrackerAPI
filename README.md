@@ -19,7 +19,7 @@ Lombok
 Steps to Run the API Locally
 1. Clone the application
 
-git clone https://github.com/scbushan05/expense-manager-api.git
+git clone 
 2. Create postgres database
 
 create database expensetracker
